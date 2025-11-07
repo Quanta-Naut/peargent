@@ -17,7 +17,7 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/tarun-kumar/peargent"
+"Homepage" = "https://github.com/Quanta-Naut/peargent"
 
 [project.optional-dependencies]
 dev = ["pytest", "black", "flake8"]
