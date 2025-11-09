@@ -1,12 +1,12 @@
-#peargent/models/openai.py
+#peargent/models/groq.py
 
 import os
 import requests
 from typing import Optional, Dict
 from .base import BaseModel
 
-class OpenAIModel(BaseModel):
-    ENDPOINT_URL = "https://api.openai.com/v1/chat/completions"
+class GroqModel(BaseModel):
+    ENDPOINT_URL = "https://api.groq.com/openai/v1/chat/completions"
     
     def __init__(
         self,
@@ -16,9 +16,10 @@ class OpenAIModel(BaseModel):
         endpoint_url: Optional[str] = None
     ):
         super().__init__(model_name, parameters)
-        self.api_key = api_key or os.getenv("OPENAI_API_KEY")
+        self.api_key = api_key or os.getenv("GROQ_API_KEY")
         if not self.api_key:
-            raise EnvironmentError("OpenAI API key not found. Set OPENAI_API_KEY in environment or pass `api_key=`.")
+            raise EnvironmentError("Groq API key not found. Set GROQ_API_KEY in environment or pass `api_key=`.")
+        
         self.endpoint_url = endpoint_url or self.ENDPOINT_URL
 
     def generate(self, prompt: str) -> str:
@@ -33,12 +34,14 @@ class OpenAIModel(BaseModel):
                 {"role": "user", "content": prompt}
             ],
             "temperature": self.parameters.get("temperature", 0.7),
-            "max_tokens": self.parameters.get("max_tokens", 512)
+            "max_tokens": self.parameters.get("max_tokens", 8192),
+            "tool_choice": "none"
         }
         
         response = requests.post(self.ENDPOINT_URL, headers=headers, json=body)
         
         if response.status_code != 200:
-            raise RuntimeError(f"OpenAI API error: {response.status_code}, {response.text}")
+            raise RuntimeError(f"Groq API error: {response.status_code}, {response.text}")
+            # return f"Groq API error: {response.status_code}, {response.text}"
         
         return response.json().get("choices", [{}])[0].get("message", {}).get("content", "")
