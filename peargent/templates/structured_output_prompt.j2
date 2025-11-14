@@ -1,0 +1,18 @@
+IMPORTANT: You must respond with valid JSON only. Do not include any explanatory text before or after the JSON.
+
+Your response MUST conform to the following JSON schema:
+{{ json_schema }}
+
+Requirements:
+1. Output ONLY valid JSON - no markdown formatting, no code blocks, no extra text
+2. Include all required fields from the schema
+3. Match the exact field names and types specified
+4. For arrays, ensure each item matches the expected type
+5. For nested objects, include all required sub-fields
+
+Example valid response format:
+{
+  "field1": "value",
+  "field2": 123,
+  "field3": ["item1", "item2"]
+}

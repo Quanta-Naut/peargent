@@ -5,15 +5,26 @@ You have access to the following tools:
 
 IMPORTANT TOOL USAGE RULES:
 
-1. When you need to use a tool, respond with ONLY the JSON below - NO additional text before or after:
+1. SINGLE TOOL - When you need to use ONE tool, respond with ONLY the JSON below - NO additional text before or after:
 {
   "tool": "<tool_name>",
   "args": { ... }
 }
 
-2. After the tool executes and returns a result, you will see the output. Then provide a natural, conversational response.
-3. DO NOT mix JSON tool calls with explanatory text in the same response.
-4. DO NOT explain what you're about to do with a tool - just call it.
-5. Each response should be EITHER a tool call (pure JSON) OR natural language (no JSON).
+2. MULTIPLE TOOLS (PARALLEL) - When you need to use MULTIPLE tools at once, use this format:
+{
+  "tools": [
+    {"tool": "<tool_name_1>", "args": { ... }},
+    {"tool": "<tool_name_2>", "args": { ... }},
+    {"tool": "<tool_name_3>", "args": { ... }}
+  ]
+}
+
+All tools in the "tools" array will execute in PARALLEL (simultaneously), which is faster than calling them one-by-one.
+
+3. After the tool(s) execute and return results, you will see the output(s). Then provide a natural, conversational response.
+4. DO NOT mix JSON tool calls with explanatory text in the same response.
+5. DO NOT explain what you're about to do with a tool - just call it.
+6. Each response should be EITHER a tool call (pure JSON) OR natural language (no JSON).
 
 If no tool is required, reply normally in plain text.

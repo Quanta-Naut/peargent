@@ -1,7 +1,7 @@
 # my_agent_lib/__init__.py
 
 from os import name
-from typing import Optional, Union
+from typing import Optional, Union, Type
 from dotenv import load_dotenv
 
 from peargent.core.router import round_robin_router
@@ -97,7 +97,7 @@ if SQLiteHistoryStore:
 # Sentinel value to detect if tracing was explicitly passed
 _TRACING_NOT_SET = object()
 
-def create_agent(name: str, description: str, persona: str, model=None, tools=None, stop=None, history=None, tracing=_TRACING_NOT_SET):
+def create_agent(name: str, description: str, persona: str, model=None, tools=None, stop=None, history=None, tracing=_TRACING_NOT_SET, output_schema=None, max_retries: int = 3):
     """
     Create an agent with optional persistent history.
 
@@ -110,6 +110,8 @@ def create_agent(name: str, description: str, persona: str, model=None, tools=No
         stop: Stop condition
         history: Optional ConversationHistory, HistoryConfig, or None for persistent conversation storage
         tracing: Enable tracing for this agent (default: False, but can be overridden by pool)
+        output_schema: Optional Pydantic model for structured output validation
+        max_retries: Maximum number of retries for structured output validation (default: 3)
 
     Returns:
         Agent instance
@@ -163,7 +165,9 @@ def create_agent(name: str, description: str, persona: str, model=None, tools=No
             stop=stop,
             history=actual_history,
             tracing=actual_tracing,
-            _tracing_explicitly_set=tracing_explicitly_set
+            _tracing_explicitly_set=tracing_explicitly_set,
+            output_schema=output_schema,
+            max_retries=max_retries
         )
 
     # Legacy behavior
@@ -176,10 +180,23 @@ def create_agent(name: str, description: str, persona: str, model=None, tools=No
         stop=stop,
         history=history,
         tracing=actual_tracing,
-        _tracing_explicitly_set=tracing_explicitly_set
+        _tracing_explicitly_set=tracing_explicitly_set,
+        output_schema=output_schema,
+        max_retries=max_retries
     )
 
-def create_tool(name: str, description: str, input_parameters: dict, call_function):
+def create_tool(
+    name: str,
+    description: str,
+    input_parameters: dict,
+    call_function,
+    timeout: Optional[float] = None,
+    max_retries: int = 0,
+    retry_delay: float = 1.0,
+    retry_backoff: bool = True,
+    on_error: str = "raise",
+    output_schema: Optional[Type] = None
+):
     """
     Create a tool that agents can use.
 
@@ -188,11 +205,52 @@ def create_tool(name: str, description: str, input_parameters: dict, call_functi
         description: Tool description
         input_parameters: Dictionary of parameter names to types
         call_function: Function to execute when tool is called
+        timeout: Maximum execution time in seconds (None = no limit)
+        max_retries: Number of retry attempts on failure (0 = no retries)
+        retry_delay: Initial delay between retries in seconds
+        retry_backoff: Use exponential backoff for retries (True = exponential, False = fixed delay)
+        on_error: Error handling strategy - "raise" (default), "return_error", or "return_none"
+        output_schema: Optional Pydantic model for output validation
 
     Returns:
         Tool instance
+
+    Examples:
+        # Basic tool
+        tool = create_tool("calculator", "Does math", {"expr": str}, eval_expr)
+
+        # Tool with 5-second timeout
+        tool = create_tool("api_call", "Calls API", {"url": str}, fetch_api,
+                          timeout=5.0)
+
+        # Tool with retries and exponential backoff
+        tool = create_tool("flaky_api", "Sometimes fails", {"id": int}, call_api,
+                          max_retries=3, retry_delay=1.0, retry_backoff=True)
+
+        # Tool with graceful error handling
+        tool = create_tool("optional_tool", "Nice to have", {"x": str}, process,
+                          on_error="return_error")
+
+        # Tool with output validation
+        class WeatherOutput(BaseModel):
+            temp: float
+            condition: str
+
+        tool = create_tool("weather", "Get weather", {"city": str}, get_weather,
+                          output_schema=WeatherOutput)
     """
-    return Tool(name=name, description=description, input_parameters=input_parameters, call_function=call_function)
+    return Tool(
+        name=name,
+        description=description,
+        input_parameters=input_parameters,
+        call_function=call_function,
+        timeout=timeout,
+        max_retries=max_retries,
+        retry_delay=retry_delay,
+        retry_backoff=retry_backoff,
+        on_error=on_error,
+        output_schema=output_schema
+    )
 
 def create_pool(agents, default_model=None, router=None, max_iter=5, default_state=None, history=None, tracing=False):
     """
