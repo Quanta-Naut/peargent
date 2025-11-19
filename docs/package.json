@@ -19,6 +19,7 @@
     "class-variance-authority": "^0.7.1",
     "fumadocs-core": "16.0.12",
     "fumadocs-mdx": "14.0.0",
+    "fumadocs-typescript": "^4.0.13",
     "fumadocs-ui": "16.0.12",
     "lucide-react": "^0.552.0",
     "next": "16.0.1",

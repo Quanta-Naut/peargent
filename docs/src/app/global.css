@@ -3,49 +3,50 @@
 @import "fumadocs-ui/css/preset.css";
 
 :root {
-  /* Neutral light surfaces */
-  --background: rgb(252, 252, 252);
-  --foreground: rgb(28, 28, 28);
-  --card: rgb(255, 255, 255);
-  --card-foreground: rgb(30, 30, 30);
-  --popover: rgb(255, 255, 255);
-  --popover-foreground: rgb(75, 75, 75);
-  /* Pear tone system – balanced & natural */
-  --primary: rgb(122, 168, 70); /* #7AA846 */
-  --primary-foreground: rgb(0, 0, 0);
+  /* Neutral light surfaces - Clean & Crisp */
+  --background: hsl(0 0% 99%);
+  --foreground: hsl(0 0% 10%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(0 0% 10%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(0 0% 10%);
 
-  --text: rgb(0, 0, 0);
+  /* Pear tone system – Vibrant & Modern */
+  --primary: hsl(84, 41%, 47%); /* #7AA846 */
+  --primary-foreground: hsl(0, 0%, 100%);
 
-  --secondary: rgb(223, 240, 173); /* #DFF0AD */
-  --secondary-foreground: rgb(0, 0, 0);
+  --text: hsl(0 0% 10%);
 
-  --accent: rgb(203, 228, 107); /* #CBE46B */
-  --accent-foreground: rgb(0, 0, 0);
+  --secondary: hsl(84, 41%, 92%); /* Very light pear green */
+  --secondary-foreground: hsl(84, 41%, 30%);
 
-  /* Destructive — warmer tone kept */
-  --destructive: rgb(202, 50, 20);
-  --destructive-foreground: rgb(255, 252, 252);
+  --accent: hsl(84, 41%, 96%); /* Subtle pear tint */
+  --accent-foreground: hsl(84, 41%, 40%);
+
+  /* Destructive */
+  --destructive: hsl(0 84.2% 60.2%);
+  --destructive-foreground: hsl(0 0% 98%);
 
   /* Borders / inputs */
-  --border: rgb(225, 225, 225);
-  --input: rgb(245, 245, 245);
+  --border: hsl(0 0% 90%);
+  --input: hsl(0 0% 90%);
   --ring: var(--primary);
 
-  /* Charts (kept for data visualization) */
-  --chart-1: rgb(114, 227, 173);
-  --chart-2: rgb(59, 130, 246);
-  --chart-3: rgb(139, 92, 246);
-  --chart-4: rgb(245, 158, 11);
-  --chart-5: rgb(16, 185, 129);
+  /* Charts */
+  --chart-1: hsl(84, 41%, 47%);
+  --chart-2: hsl(173, 58%, 39%);
+  --chart-3: hsl(197, 37%, 24%);
+  --chart-4: hsl(43, 74%, 66%);
+  --chart-5: hsl(27, 87%, 67%);
 
-  /* Sidebar */
-  --sidebar: rgb(252, 252, 252);
-  --sidebar-foreground: rgb(102, 102, 102);
+  /* Sidebar - Clean Neutral */
+  --sidebar: hsl(0 0% 98%);
+  --sidebar-foreground: hsl(0 0% 40%);
   --sidebar-primary: var(--primary);
-  --sidebar-primary-foreground: rgb(22, 32, 28);
-  --sidebar-accent: rgb(238, 238, 238);
-  --sidebar-accent-foreground: rgb(40, 40, 40);
-  --sidebar-border: rgb(100, 93, 93);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(0 0% 94%);
+  --sidebar-accent-foreground: hsl(0 0% 10%);
+  --sidebar-border: hsl(0 0% 90%);
   --sidebar-ring: var(--primary);
 
   /* Typography */
@@ -54,76 +55,67 @@
   --font-mono: monospace;
   --radius: 0.5rem;
 
-  /* Soft daylight shadows */
+  /* Soft modern shadows */
   --shadow-x: 0px;
   --shadow-y: 1px;
   --shadow-blur: 3px;
   --shadow-spread: 0px;
-  --shadow-opacity: 0.14;
+  --shadow-opacity: 0.1;
   --shadow-color: #000000;
 
-  --shadow-2xs: 0px 1px 3px hsl(0 0% 0% / 0.07);
-  --shadow-xs: 0px 1px 3px hsl(0 0% 0% / 0.07);
-  --shadow-sm: 0px 1px 3px hsl(0 0% 0% / 0.14),
-    0px 1px 2px -1px hsl(0 0% 0% / 0.14);
-  --shadow: 0px 1px 3px hsl(0 0% 0% / 0.14),
-    0px 1px 2px -1px hsl(0 0% 0% / 0.14);
-  --shadow-md: 0px 1px 3px hsl(0 0% 0% / 0.14),
-    0px 2px 4px -1px hsl(0 0% 0% / 0.14);
-  --shadow-lg: 0px 1px 3px hsl(0 0% 0% / 0.14),
-    0px 4px 6px -1px hsl(0 0% 0% / 0.14);
-  --shadow-xl: 0px 1px 3px hsl(0 0% 0% / 0.14),
-    0px 8px 10px -1px hsl(0 0% 0% / 0.14);
-  --shadow-2xl: 0px 1px 3px hsl(0 0% 0% / 0.38);
+  --shadow-2xs: 0px 1px 2px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0px 1px 2px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0px 1px 3px hsl(0 0% 0% / 0.1), 0px 1px 2px -1px hsl(0 0% 0% / 0.1);
+  --shadow: 0px 4px 6px -1px hsl(0 0% 0% / 0.1), 0px 2px 4px -2px hsl(0 0% 0% / 0.1);
+  --shadow-md: 0px 4px 6px -1px hsl(0 0% 0% / 0.1), 0px 2px 4px -2px hsl(0 0% 0% / 0.1);
+  --shadow-lg: 0px 10px 15px -3px hsl(0 0% 0% / 0.1), 0px 4px 6px -4px hsl(0 0% 0% / 0.1);
+  --shadow-xl: 0px 20px 25px -5px hsl(0 0% 0% / 0.1), 0px 8px 10px -6px hsl(0 0% 0% / 0.1);
+  --shadow-2xl: 0px 25px 50px -12px hsl(0 0% 0% / 0.25);
 
   --tracking-normal: 0.025em;
   --spacing: 0.25rem;
 }
 
 .dark {
-  /* Neutral dark surfaces */
-  --background: oklch(0.22 0.01 260); /* deep charcoal */
-  --card: oklch(0.26 0.005 260);
-  --popover: oklch(0.26 0.005 260);
+  /* Neutral dark surfaces - Deep & Rich */
+  --background: hsl(0 0% 10%);
+  --foreground: hsl(0 0% 95%);
+  --card: hsl(0 0% 12%);
+  --card-foreground: hsl(0 0% 95%);
+  --popover: hsl(0 0% 12%);
+  --popover-foreground: hsl(0 0% 95%);
 
-  /* Neutral readable text */
-  --foreground: oklch(0.95 0.01 260);
-  --card-foreground: oklch(0.95 0.01 260);
-  --popover-foreground: rgb(235, 239, 245);
-  --text: rgb(255, 255, 255);
+  --text: hsl(0 0% 95%);
 
-  /* 🔥 Updated: Poppy Green (Primary) */
-  --primary: oklch(0.76 0.19 137); /* vivid poppy green */
-  --primary-foreground: oklch(0.18 0.04 140);
+  /* Pear Green - Vivid for Dark Mode */
+  --primary: hsl(84, 50%, 55%);
+  --primary-foreground: hsl(0, 0%, 10%);
 
-  /* ❗ Unchanged as requested */
-  --secondary: rgb(36, 36, 36);
-  --secondary-foreground: oklch(0.2 0.04 140);
+  --secondary: hsl(0 0% 15%);
+  --secondary-foreground: hsl(0 0% 95%);
 
-  --accent: hsl(0, 0%, 19%);
-  --accent-foreground: rgb(250, 250, 250);
+  --accent: hsl(0 0% 15%);
+  --accent-foreground: hsl(0 0% 95%);
 
-  /* Supporting neutrals */
-  --muted: oklch(0.32 0.01 260);
-  --muted-foreground: oklch(0.75 0.01 260);
+  --muted: hsl(0 0% 15%);
+  --muted-foreground: hsl(0 0% 65%);
 
-  /* Mild neutral warm-destructive */
-  --destructive: oklch(0.45 0.04 30);
-  --destructive-foreground: oklch(0.98 0.01 260);
+  --destructive: hsl(0 62.8% 30.6%);
+  --destructive-foreground: hsl(0 0% 95%);
 
   /* Borders */
-  --border: oklch(0.32 0.005 260);
-  --input: oklch(0.32 0.005 260);
+  --border: hsl(0 0% 20%);
+  --input: hsl(0 0% 20%);
   --ring: var(--primary);
 
-  /* Sidebar neutral */
-  --sidebar: oklch(0.22 0.01 260);
-  --sidebar-foreground: oklch(0.95 0.01 260);
+  /* Sidebar - Dark Neutral */
+  --sidebar: hsl(0 0% 11%);
+  --sidebar-foreground: hsl(0 0% 70%);
   --sidebar-primary: var(--primary);
-  --sidebar-primary-foreground: oklch(0.18 0.04 140);
-  --sidebar-accent: var(--accent);
-  --sidebar-accent-foreground: oklch(0.2 0.04 140);
-  --sidebar-border: oklch(0.32 0.005 260);
+  --sidebar-primary-foreground: hsl(0 0% 10%);
+  --sidebar-accent: hsl(0 0% 16%);
+  --sidebar-accent-foreground: hsl(0 0% 95%);
+  --sidebar-border: hsl(0 0% 20%);
   --sidebar-ring: var(--primary);
 
   /* Typography */
@@ -132,16 +124,16 @@
   --font-mono: Source Code Pro, monospace;
   --radius: 0.5rem;
 
-  /* Shadows – subtle */
-  --shadow-color: oklch(0 0 0);
-  --shadow-2xs: 0 1px 3px hsl(0 0% 0% / 0.05);
-  --shadow-xs: 0 1px 3px hsl(0 0% 0% / 0.05);
-  --shadow-sm: 0 1px 3px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
-  --shadow: 0 1px 3px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
-  --shadow-md: 0 1px 3px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.1);
-  --shadow-lg: 0 1px 3px hsl(0 0% 0% / 0.1), 0 4px 6px -1px hsl(0 0% 0% / 0.1);
-  --shadow-xl: 0 1px 3px hsl(0 0% 0% / 0.1), 0 8px 10px -1px hsl(0 0% 0% / 0.1);
-  --shadow-2xl: 0 1px 3px hsl(0 0% 0% / 0.25);
+  /* Shadows */
+  --shadow-color: hsl(0 0% 0%);
+  --shadow-2xs: 0 1px 2px hsl(0 0% 0% / 0.5);
+  --shadow-xs: 0 1px 2px hsl(0 0% 0% / 0.5);
+  --shadow-sm: 0 1px 2px hsl(0 0% 0% / 0.5);
+  --shadow: 0 4px 6px -1px hsl(0 0% 0% / 0.5);
+  --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.5);
+  --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.5);
+  --shadow-xl: 0 20px 25px -5px hsl(0 0% 0% / 0.5);
+  --shadow-2xl: 0 25px 50px -12px hsl(0 0% 0% / 0.5);
 }
 
 @theme inline {

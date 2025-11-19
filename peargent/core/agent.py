@@ -35,7 +35,7 @@ class Agent:
         context_strategy (str): Strategy for context management ("smart", "trim_last", "trim_first", "summarize")
         summarize_model: Model to use for summarization (falls back to main model if not provided)
     """
-    def __init__(self, name, model, persona, description, tools, stop=None, history: Optional[ConversationHistory] = None, auto_manage_context: bool = False, max_context_messages: int = 20, context_strategy: str = "smart", summarize_model=None, tracing: bool = False, _tracing_explicitly_set: bool = False, output_schema: Optional[Type] = None, max_retries: int = 3):
+    def __init__(self, name, model, persona, description, tools, stop=None, history: Optional[ConversationHistory] = None, auto_manage_context: bool = False, max_context_messages: int = 20, context_strategy: str = "smart", summarize_model=None, tracing: bool = True, _tracing_explicitly_set: bool = False, output_schema: Optional[Type] = None, max_retries: int = 3):
         self.name = name
         self.model = model
         self.persona = persona

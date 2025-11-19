@@ -94,7 +94,10 @@ def create_agent(name: str, description: str, persona: str, model=None, tools=No
         tools: List of tool names (str) or Tool objects
         stop: Stop condition
         history: Optional ConversationHistory, HistoryConfig, or None for persistent conversation storage
-        tracing: Enable tracing for this agent (default: False, but can be overridden by pool)
+        tracing: Enable/disable tracing for this agent. Behavior:
+                 - None (default): Inherits from global tracer if enable_tracing() was called
+                 - True: Explicitly enable tracing for this agent
+                 - False: Explicitly disable tracing (opt-out), even if global tracing is enabled
         output_schema: Optional Pydantic model for structured output validation
         max_retries: Maximum number of retries for structured output validation (default: 3)
 
@@ -102,7 +105,23 @@ def create_agent(name: str, description: str, persona: str, model=None, tools=No
         Agent instance
 
     Examples:
-        # New DSL with HistoryConfig
+        # Agent with default tracing behavior (inherits from global)
+        enable_tracing(store_type="sqlite", ...)  # Enable global tracing
+        agent = create_agent(
+            name="Assistant",
+            description="A helpful assistant",
+            persona="You are helpful",
+            model=groq()
+        )  # This agent will be traced
+
+        # Explicitly enable tracing for one agent
+        agent = create_agent(..., tracing=True)  # Always traced
+
+        # Opt-out from global tracing
+        enable_tracing(...)  # Global tracing on
+        agent = create_agent(..., tracing=False)  # This agent won't be traced
+
+        # With history
         agent = create_agent(
             name="Assistant",
             description="A helpful assistant",
@@ -112,17 +131,9 @@ def create_agent(name: str, description: str, persona: str, model=None, tools=No
                 auto_manage_context=True,
                 max_context_messages=10,
                 strategy="smart",
-                summarize_model=groq(),
                 store=File(storage_dir="./conversations")
             )
         )
-
-        # With tracing enabled
-        agent = create_agent(..., tracing=True)
-
-        # Legacy approach (still supported)
-        history = create_history(File(storage_dir="./conversations"))
-        agent = create_agent(..., history=history, auto_manage_context=True)
     """
     parsed_tools = []
     for t in tools or []:
@@ -135,7 +146,26 @@ def create_agent(name: str, description: str, persona: str, model=None, tools=No
 
     # Determine if tracing was explicitly set
     tracing_explicitly_set = tracing is not _TRACING_NOT_SET
-    actual_tracing = False if tracing is _TRACING_NOT_SET else tracing
+
+    # Smart tracing logic:
+    # 1. If tracing=True explicitly -> enable tracing
+    # 2. If tracing=False explicitly -> disable tracing (opt-out)
+    # 3. If tracing not set (None/default):
+    #    - Check if global tracer was configured (enable_tracing() was called)
+    #    - If global tracer configured and enabled -> inherit (enable tracing)
+    #    - If global tracer not configured -> disable tracing (default off)
+    if tracing is _TRACING_NOT_SET:
+        # Check if global tracer was explicitly configured
+        from peargent.telemetry.tracer import _global_tracer
+        if _global_tracer is not None and _global_tracer.enabled:
+            # Global tracer was configured with enable_tracing() and is enabled
+            actual_tracing = True
+        else:
+            # No global tracer configured, default to disabled
+            actual_tracing = False
+    else:
+        # User explicitly set tracing=True or tracing=False
+        actual_tracing = tracing
 
     # Handle HistoryConfig
     if isinstance(history, HistoryConfig):

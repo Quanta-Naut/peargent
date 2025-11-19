@@ -7,6 +7,11 @@
     "---Get Started---",
     "index",
     "quickstart",
-    "test"
+    "installation",
+    "examples",
+    "---Core Concepts---",
+    "agents",
+    "tools",
+    "pools"
   ]
 }

@@ -29,8 +29,36 @@ For this example, we’ll create a friendly agent who speaks like **William Shak
 ```python tab="quickstart.py"
 from peargent import create_agent
 from peargent.models import openai
+
+agent = create_agent(
+    name="ShakespeareBot",
+    description="An AI agent that speaks like William Shakespeare.",
+    persona="You are ShakespeareBot, a witty and eloquent assistant who communicates in the style of William Shakespeare.",
+    model=openai("gpt-5")
+)
+response = agent.run("What is the meaning of life?")
+print(response)
+```
+Before running the code, you will need to set your `OPENAI_API_KEY` inside your `.env` file.
+```bash tab=".env"
+OPENAI_API_KEY="your_openai_api_key_here"
+```
+### Run the Agent
+Now, run your `quickstart.py` script to see your agent in action!
+```bash tab="terminal"
+python quickstart.py
 ```
 
-### Next Step
-Your content here
+You should see a response from agent (ShakespeareBot), answering your question in Shakespearean style!
+```text no-copy tab="Terminal Output"
+Ah, fair seeker of truth, thou question dost pierce the very veil of existence!
+The meaning of life, methinks, is not a single treasure buried in mortal sands,
+but a wondrous journey of love, virtue, and discovery. 
+To cherish each breath, to learn from sorrow, 
+and to weave kindness through the tapestry of thy days — 
+therein lies life’s most noble purpose.
+```
 </div>
+<br/>
+
+Congratulations! You have successfully created and run your first AI agent using Peargent. 

@@ -1,0 +1,77 @@
+---
+title: Components
+description: Components
+---
+
+Tools
+
+## Advanced Features
+
+### Timeout
+
+Prevent tools from hanging:
+
+```python
+api_tool = create_tool(
+    name="api_call",
+    description="Call external API",
+    input_parameters={"url": str},
+    call_function=fetch_api,
+    timeout=5.0  # Kill after 5 seconds
+)
+```
+
+### Retry with Backoff
+
+Automatically retry failed operations:
+
+```python
+flaky_tool = create_tool(
+    name="flaky_api",
+    description="API that sometimes fails",
+    input_parameters={"data": str},
+    call_function=unreliable_api,
+    max_retries=3,        # Try up to 3 times
+    retry_delay=1.0,      # Start with 1s delay
+    retry_backoff=True    # Delays: 1s, 2s, 4s
+)
+```
+
+### Error Handling
+
+Choose how to handle failures:
+
+```python
+# Raise exception (default) - critical tools that must succeed
+tool1 = create_tool(..., on_error="raise")
+
+# Return error message - agent handles the error
+tool2 = create_tool(..., on_error="return_error")
+
+# Return None silently - optional tools
+tool3 = create_tool(..., on_error="return_none")
+```
+
+### Output Validation
+
+Validate tool outputs with Pydantic:
+
+```python
+from pydantic import BaseModel, Field
+
+class WeatherData(BaseModel):
+    temperature: float
+    condition: str
+    humidity: int = Field(ge=0, le=100)
+
+weather_tool = create_tool(
+    name="get_weather",
+    description="Get weather data",
+    input_parameters={"city": str},
+    call_function=fetch_weather,
+    output_schema=WeatherData
+)
+
+result = weather_tool.run({"city": "NYC"})
+print(result.temperature)  # Type-safe access
+```

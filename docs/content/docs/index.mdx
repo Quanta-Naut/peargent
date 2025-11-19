@@ -37,10 +37,8 @@ Peargent lets you build individual agents or complex systems where each **<u>Age
 
 ## Why Peargent?
 
-Simple to Start, Powerful at Scale
-
   Start with a basic agent in just a few lines:
-```python
+```python tab="basic_agent.py"
   from peargent import create_agent
 
   agent = create_agent(
@@ -54,7 +52,7 @@ Simple to Start, Powerful at Scale
 
   Scale to complex multi-agent systems with memory, tools, and observability:
 
-```python
+```python tab="multi_agent.py"
   from peargent import create_agent, create_tool, create_pool
   from peargent.history import HistoryConfig, Sqlite
 
