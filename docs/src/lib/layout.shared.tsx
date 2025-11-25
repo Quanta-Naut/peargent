@@ -9,16 +9,13 @@ export function baseOptions(disableThemeSwitch = false): BaseLayoutProps {
       transparentMode: 'always',
 
     },
-    links: [
-      // {
-      //   text: 'Docs',
-      //   url: '/docs',
-      // },
-      // {
-      //   text: 'GitHub',
-      //   url: 'https://github.com/quanta-naut/peargent',
-      //   external: true,
-      // },
-    ],
+    githubUrl: 'https://github.com/quanta-naut/peargent',
+    // links: [
+    //   {
+    //     text: 'GitHub',
+    //     url: 'https://github.com/quanta-naut/peargent',
+    //     external: true,
+    //   },
+    // ],
   };
 }

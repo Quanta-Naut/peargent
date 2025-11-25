@@ -85,8 +85,7 @@ All updates are saved back to the **<u>[storage backend](/docs/history#storage-b
 
 </div>
 
-Because history supports many advanced capabilities, custom storage backends, manual thread control, serialization, and low-level message operations, listing every option here would make this page too large. For deeper configuration and advanced usage, see **<u>Advanced Features
-</u>**.
+Because history supports many advanced capabilities, custom storage backends, manual thread control, serialization, and low-level message operations, listing every option here would make this page too large. For deeper configuration and advanced usage, see **<u>[Advanced History](/docs/Advanced%20History)</u>**.
 
 ## Storage Backends
 
@@ -138,7 +137,7 @@ history = HistoryConfig(
     )
 )
 ```
-To create a custom storage backend, refer to **<u>[Custom Storage Backend](/docs/history#custom-storage-backend)</u>**.
+To create a custom storage backend, refer to **<u>[Advanced History - Custom Storage Backends](/docs/Advanced%20History/custom-storage)</u>**.
 
 ## Auto Context Management
 
@@ -207,4 +206,4 @@ history = HistoryConfig(
 | `summarize_model` | `Model` | `None` | LLM model for summarization (defaults to agent's model if not provided) | No |
 | `store` | `StorageType` | `InMemory()` | Storage backend: `InMemory()`, `File()`, `Sqlite()`, `Postgresql()`, `Redis()` | No |
 
-Learn more about Advance Features in **<u>Advanced Features</u>**.
+Learn more about advanced history features including custom storage backends, manual thread control, and all available history methods in **<u>[Advanced History](/docs/Advanced%20History)</u>**.

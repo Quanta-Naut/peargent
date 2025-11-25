@@ -19,6 +19,7 @@
     "models",
     "long_term_memory",
     "---Advanced Features---",
+    "History Management",
     "Structured Output",
     "Error Handling in Tools",
     "Tracing and Observability",

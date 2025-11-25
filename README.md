@@ -7,7 +7,7 @@
 [![PyPI version](https://badge.fury.io/py/peargent.svg?bust=1)](https://badge.fury.io/py/peargent)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A modern Python framework for building intelligent AI agents with advanced tracing, history management, and seamless LLM integration.
+A modern Python framework for building intelligent AI agents with simplicity at its core.
 
 ## Features
 
@@ -42,8 +42,7 @@ result = agent.run("What is the capital of France?")
 print(result)
 ```
 
-For more examples and detailed documentation, visit the [Documentation](your-docs-url-here).
-
+For more examples and detailed documentation, visit [peargent.online](https://peargent.online).
 
 ## License
 
@@ -52,8 +51,3 @@ MIT License - see [LICENSE](LICENSE) file for details
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
-## Author
-
-Created by [Quanta-Naut](https://github.com/Quanta-Naut)
-
